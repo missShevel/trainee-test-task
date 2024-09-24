@@ -18,7 +18,7 @@ export class Card implements ICard {
   @Column()
   title: string;
 
-  @Column({nullable: true})
+  @Column({ nullable: true })
   description: string;
 
   @Column({
@@ -34,6 +34,6 @@ export class Card implements ICard {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => Board, (board) => board.cards)
+  @ManyToOne(() => Board, (board) => board.cards, { onDelete: 'CASCADE' })
   board: Board;
 }

@@ -1,21 +1,27 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { IBoard } from "./interface/board.interface";
-import { Card } from "src/card/card.entity";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { Card } from 'src/card/card.entity';
 
 @Entity('boards')
-export class Board implements IBoard {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+export class Board {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 
-    @CreateDateColumn()
-    createdAt: Date;
-  
-    @UpdateDateColumn()
-    updatedAt: Date;
+  @CreateDateColumn()
+  createdAt: Date;
 
-    @OneToMany(() => Card, (card) => card.board)
-    cards: Card[];
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @OneToMany(() => Card, (card) => card.board)
+  cards: Card[];
 }
