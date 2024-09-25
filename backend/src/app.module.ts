@@ -25,7 +25,8 @@ import { BoardModule } from './board/board.module';
       }),
       inject: [ConfigService],
     }),
-    CardModule, BoardModule
+    CardModule,
+    BoardModule,
   ],
   controllers: [AppController],
   providers: [AppService],

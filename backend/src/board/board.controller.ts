@@ -42,7 +42,10 @@ export class BoardController {
   }
 
   @Put(':id')
-  async editOne(@Param('id', ParseUUIDPipe) id: string, @Body() updateData: UpdateBoardDto): Promise<Board> {
+  async editOne(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() updateData: UpdateBoardDto,
+  ): Promise<Board> {
     const board = await this.boardService.findOne(id);
     if (!board) {
       throw new NotFoundException();

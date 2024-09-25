@@ -1,3 +1,3 @@
 export interface IUpdateBoard {
-    name?: string;
+  name?: string;
 }

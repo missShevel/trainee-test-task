@@ -7,19 +7,18 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { CardStatus } from './enum/cardStatus.enum';
-import { ICard } from './interface/card.interface';
 import { Board } from 'src/board/board.entity';
 
 @Entity('cards')
-export class Card implements ICard {
+export class Card {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ nullable: false })
   title: string;
 
   @Column({ nullable: true })
-  description: string;
+  description?: string;
 
   @Column({
     type: 'enum',
