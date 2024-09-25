@@ -25,20 +25,12 @@ export class BoardController {
 
   @Get(':id')
   async getOne(@Param('id', ParseUUIDPipe) id: string): Promise<Board> {
-    const board = await this.boardService.findOneWithCards(id);
-    if (!board) {
-      throw new NotFoundException();
-    }
-    return board;
+    return this.boardService.getBoardWithCardsOrThrow(id);
   }
 
   @Delete(':id')
-  async deleteOne(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
-    const board = await this.boardService.findOne(id);
-    if (!board) {
-      throw new NotFoundException();
-    }
-    await this.boardService.deleteOne(id);
+  async deleteOne(@Param('id', ParseUUIDPipe) id: string): Promise<Board> {
+    return this.boardService.deleteOne(id);
   }
 
   @Put(':id')
@@ -46,10 +38,6 @@ export class BoardController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateData: UpdateBoardDto,
   ): Promise<Board> {
-    const board = await this.boardService.findOne(id);
-    if (!board) {
-      throw new NotFoundException();
-    }
-    return this.boardService.updateOne(board, updateData);
+    return this.boardService.updateOne(id, updateData);
   }
 }
