@@ -23,15 +23,46 @@ const boardSlice = createSlice({
     builder
       .addCase(getBoardWithCards.pending, (state) => {
         state.isLoading = true;
+        state.isError = false;
       })
       .addCase(
         getBoardWithCards.fulfilled,
         (state, action: PayloadAction<IBoardWithCards>) => {
           state.isLoading = false;
           state.boardWithCards = action.payload;
+          state.isError = false;
         }
       )
       .addCase(getBoardWithCards.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+      })
+      .addCase(updateBoardName.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(
+        updateBoardName.fulfilled,
+        (state, action: PayloadAction<IBoardWithCards>) => {
+          state.isLoading = false;
+          state.boardWithCards = action.payload;
+          state.isError = false;
+        }
+      )
+      .addCase(updateBoardName.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+      })
+      .addCase(deleteBoard.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(deleteBoard.fulfilled, (state) => {
+        state.isLoading = false;
+        state.boardWithCards = null;
+        state.isError = false;
+      })
+      .addCase(deleteBoard.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
       });
@@ -45,6 +76,26 @@ export const getBoardWithCards = createAsyncThunk(
       `${ApiEndpoints.GET_BOARD}/${boardId}`
     );
     return board;
+  }
+);
+
+export const updateBoardName = createAsyncThunk(
+  "board/updateBoardName",
+  async ({ boardId, name }: { boardId: string; name: string }) => {
+    const { data: board } = await axiosInstance.put<IBoardWithCards>(
+      `${ApiEndpoints.GET_BOARD}/${boardId}`,
+      { name }
+    );
+    return board;
+  }
+);
+
+export const deleteBoard = createAsyncThunk(
+  "board/delete",
+  async (boardId: string) => {
+    await axiosInstance.delete<IBoardWithCards>(
+      `${ApiEndpoints.GET_BOARD}/${boardId}`
+    );
   }
 );
 
