@@ -1,7 +1,8 @@
 import { Typography } from "antd";
+import { ViewBoardColumnsEnum } from "../../enum/view-board-columns";
 
 export type BoardViewColumnNameProps = {
-  name: string;
+  name: ViewBoardColumnsEnum;
 };
 
 const BoardViewColumnName = ({ name }: BoardViewColumnNameProps) => {

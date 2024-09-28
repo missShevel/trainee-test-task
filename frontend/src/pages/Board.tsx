@@ -114,7 +114,7 @@ const Board = () => {
           buttonText="Delete Board"
         />
       </Flex>
-      <BoardView handleEditCard={showEditModal} cardList={boardWithCards.cards} />
+      <BoardView handleEditCard={showEditModal} boardId={boardId }cardList={boardWithCards.cards} />
       <CreateCardModal open={openCreateModal} setOpen={setOpenCreateModal} />
       <EditCardModal selectedCard={selectedCard} open={openEditModal} setOpen={setOpenEditModal} />
 

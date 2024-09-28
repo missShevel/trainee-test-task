@@ -20,7 +20,9 @@ const DeleteButtonWithConfirm = ({
   return (
     <div className="DeleteButtonWithConfirm">
       <Popconfirm {...popconfirmProps}>
-        <Button danger>{buttonContent}</Button>
+        <Button onMouseDown={(e) => e.stopPropagation()} danger>
+          {buttonContent}
+        </Button>
       </Popconfirm>
     </div>
   );

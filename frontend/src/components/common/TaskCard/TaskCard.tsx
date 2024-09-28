@@ -5,6 +5,8 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import DeleteButtonWithConfirm from "../DeleteButtonWithConfirm";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import deleteCard from "../../../features/board/thunk/card/deleteCard";
+import { useDraggable } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities";
 
 export type TaskCardProps = {
   card: ICard;
@@ -16,7 +18,13 @@ const TaskCard = ({ card, handleEditCard }: TaskCardProps) => {
     (state) => state.board
   );
 
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id: card.id,
+    });
+
   const dispatch = useAppDispatch();
+
   const handleDeleteCard = (cardId: string) => {
     dispatch(deleteCard({ boardId: boardWithCards!.id, cardId }));
   };
@@ -37,7 +45,11 @@ const TaskCard = ({ card, handleEditCard }: TaskCardProps) => {
         key={card.id}
         title={card.title}
         bordered={true}
-        style={{ borderRadius: 8 }}
+        style={{
+          borderRadius: 8,
+          transform: CSS.Translate.toString(transform),
+          zIndex: 5,
+        }}
         extra={
           <Typography.Text type="secondary">
             {dayjs(card.createdAt).format("MMM D, YYYY")}
@@ -45,6 +57,9 @@ const TaskCard = ({ card, handleEditCard }: TaskCardProps) => {
         }
         hoverable
         actions={actions}
+        ref={setNodeRef}
+        {...listeners}
+        {...attributes}
       >
         <Typography.Paragraph
           ellipsis={{ rows: 3, expandable: true, symbol: "more" }}

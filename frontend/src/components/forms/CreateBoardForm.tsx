@@ -2,8 +2,7 @@ import { Form, FormInstance, Input } from "antd";
 interface CreateBoardFormProps {
   form: FormInstance;
   initialValues?: {
-    title?: string;
-    description?: string;
+    name: string;
   };
 }
 const CreateBoardForm = ({ form, initialValues }: CreateBoardFormProps) => {
@@ -15,14 +14,11 @@ const CreateBoardForm = ({ form, initialValues }: CreateBoardFormProps) => {
       autoComplete="on"
     >
       <Form.Item
-        name="title"
-        label="Title"
-        rules={[{ required: true, message: "Set task title" }]}
+        name="name"
+        label="Board name"
+        rules={[{ required: true, message: "Set board name" }]}
       >
         <Input />
-      </Form.Item>
-      <Form.Item name="description" label="Description">
-        <Input.TextArea rows={4} />
       </Form.Item>
     </Form>
   );

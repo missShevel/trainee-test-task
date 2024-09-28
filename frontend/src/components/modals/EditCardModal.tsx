@@ -2,9 +2,9 @@ import { useForm } from "antd/es/form/Form";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { Modal } from "antd";
-import CreateBoardForm from "../forms/CreateBoardForm";
 import { ICard } from "../../interface/cardInterface";
 import editCard from "../../features/board/thunk/card/editCard";
+import CreateCardForm from "../forms/CreateCardForm";
 
 interface EditCardModalProps {
   open: boolean;
@@ -53,7 +53,7 @@ const EditCardModal = ({ open, setOpen, selectedCard }: EditCardModalProps) => {
       confirmLoading={confirmLoading}
       onCancel={handleCancel}
     >
-      <CreateBoardForm
+      <CreateCardForm
         form={form}
         initialValues={{
           title: selectedCard?.title,

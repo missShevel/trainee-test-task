@@ -48,7 +48,7 @@ export class BoardService {
   }
 
   async updateOne(id: string, updateBoardData: IUpdateBoard): Promise<Board> {
-    const boardToUpdate = await this.getBoardOrThrow(id);
+    const boardToUpdate = await this.getBoardWithCardsOrThrow(id);
     Object.assign(boardToUpdate, updateBoardData);
     return this.boardRepository.save(boardToUpdate);
   }
