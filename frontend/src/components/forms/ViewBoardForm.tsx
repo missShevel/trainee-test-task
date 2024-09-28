@@ -1,19 +1,20 @@
-import { Button, Flex, Form, Input } from "antd";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import * as React from 'react';
+import { Button, Flex, Form, Input } from 'antd';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ViewBoardForm = () => {
-  const [boardId, setBoardId] = useState("");
+  const [boardId, setBoardId] = useState('');
   const navigate = useNavigate();
   const onFinish = () => {
     navigate(`/board/${boardId}`);
   };
   return (
     <Form name="viewBoard" layout="horizontal" onFinish={onFinish}>
-      <Flex gap={"small"}>
+      <Flex gap={'small'}>
         <Form.Item
           name="boardId"
-          rules={[{ required: true, message: "Set board id" }]}
+          rules={[{ required: true, message: 'Set board id' }]}
         >
           <Input
             onChange={(e) => setBoardId(e.target.value)}

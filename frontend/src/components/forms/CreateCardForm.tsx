@@ -1,4 +1,5 @@
-import { Form, FormInstance, Input } from "antd";
+import * as React from 'react';
+import { Form, FormInstance, Input } from 'antd';
 interface CreateCardFormProps {
   form: FormInstance;
   initialValues?: {
@@ -17,7 +18,7 @@ const CreateCardForm = ({ form, initialValues }: CreateCardFormProps) => {
       <Form.Item
         name="title"
         label="Title"
-        rules={[{ required: true, message: "Set task title" }]}
+        rules={[{ required: true, message: 'Set task title' }]}
       >
         <Input />
       </Form.Item>

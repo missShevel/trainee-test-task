@@ -1,4 +1,5 @@
-import { Form, FormInstance, Input } from "antd";
+import * as React from 'react';
+import { Form, FormInstance, Input } from 'antd';
 interface CreateBoardFormProps {
   form: FormInstance;
   initialValues?: {
@@ -16,7 +17,7 @@ const CreateBoardForm = ({ form, initialValues }: CreateBoardFormProps) => {
       <Form.Item
         name="name"
         label="Board name"
-        rules={[{ required: true, message: "Set board name" }]}
+        rules={[{ required: true, message: 'Set board name' }]}
       >
         <Input />
       </Form.Item>

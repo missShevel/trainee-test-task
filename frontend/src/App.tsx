@@ -1,7 +1,8 @@
-import "./App.css";
-import HomePage from "./pages/Home";
-import { Route, Routes } from "react-router-dom";
-import Board from "./pages/Board";
+import * as React from 'react';
+import './App.css';
+import HomePage from './pages/Home';
+import { Route, Routes } from 'react-router-dom';
+import Board from './pages/Board';
 
 function App() {
   return (

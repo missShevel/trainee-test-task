@@ -1,12 +1,12 @@
-import { ICard } from "./cardInterface";
+import { ICard } from './cardInterface';
 
 export interface IBoard {
-    id: string,
-    name: string,
-    createdAt: Date,
-    updatedAt: Date,
+  id: string;
+  name: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface IBoardWithCards extends IBoard {
-    cards: ICard[];
+  cards: ICard[];
 }

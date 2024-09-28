@@ -1,10 +1,10 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axiosInstance from "../../../../api/axios";
-import { ICard } from "../../../../interface/cardInterface";
-import { ApiEndpoints } from "../../../../enum/apiEndpoints";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axiosInstance from '../../../../api/axios';
+import { ICard } from '../../../../interface/cardInterface';
+import { ApiEndpoints } from '../../../../enum/apiEndpoints';
 
 export default createAsyncThunk(
-  "card/editCard",
+  'card/editCard',
   async ({
     boardId,
     cardId,

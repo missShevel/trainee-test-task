@@ -1,4 +1,4 @@
-import { IBoardWithCards } from "../../interface/boardInterface";
+import { IBoardWithCards } from '../../interface/boardInterface';
 
 export interface IBoardInitialState {
   boardWithCards: IBoardWithCards | null;

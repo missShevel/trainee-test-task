@@ -1,12 +1,12 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IBoardWithCards } from "../../interface/boardInterface";
-import { deleteBoard, getBoardWithCards, updateBoardName } from "./thunk";
-import { boardInitialState, IBoardInitialState } from "./state";
-import deleteCard from "./thunk/card/deleteCard";
-import { ICard } from "../../interface/cardInterface";
-import createCard from "./thunk/card/createCard";
-import editCard from "./thunk/card/editCard";
-import updateCardStatus from "./thunk/card/updateCardStatus";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IBoardWithCards } from '../../interface/boardInterface';
+import { deleteBoard, getBoardWithCards, updateBoardName } from './thunk';
+import { boardInitialState, IBoardInitialState } from './state';
+import deleteCard from './thunk/card/deleteCard';
+import { ICard } from '../../interface/cardInterface';
+import createCard from './thunk/card/createCard';
+import editCard from './thunk/card/editCard';
+import updateCardStatus from './thunk/card/updateCardStatus';
 
 const handlePending = (state: IBoardInitialState) => {
   state.isLoading = true;
@@ -19,7 +19,7 @@ const handleRejected = (state: IBoardInitialState) => {
 };
 
 export const boardSlice = createSlice({
-  name: "board",
+  name: 'board',
   initialState: boardInitialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -88,20 +88,22 @@ export const boardSlice = createSlice({
         state.boardWithCards!.cards[cardIndexToUpdate] = editedCard;
         state.isError = false;
       })
-      .addCase(editCard.rejected, handleRejected)
-      builder
+      .addCase(editCard.rejected, handleRejected);
+    builder
       .addCase(updateCardStatus.pending, handlePending)
-      .addCase(updateCardStatus.fulfilled, (state, action: PayloadAction<ICard>) => {
-        state.isLoading = false;
-        const editedCard = action.payload;
-        const cardIndexToUpdate = state.boardWithCards!.cards.findIndex(
-          (card) => card.id === editedCard.id
-        );
-        state.boardWithCards!.cards[cardIndexToUpdate] = editedCard;
-        state.isError = false;
-      })
-      .addCase(updateCardStatus.rejected, handleRejected);;
-
+      .addCase(
+        updateCardStatus.fulfilled,
+        (state, action: PayloadAction<ICard>) => {
+          state.isLoading = false;
+          const editedCard = action.payload;
+          const cardIndexToUpdate = state.boardWithCards!.cards.findIndex(
+            (card) => card.id === editedCard.id
+          );
+          state.boardWithCards!.cards[cardIndexToUpdate] = editedCard;
+          state.isError = false;
+        }
+      )
+      .addCase(updateCardStatus.rejected, handleRejected);
   },
 });
 

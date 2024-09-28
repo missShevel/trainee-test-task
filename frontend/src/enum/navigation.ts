@@ -1,3 +1,3 @@
 export enum NavigationPages {
-    HOME = '/'
+  HOME = '/',
 }

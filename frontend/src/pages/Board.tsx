@@ -1,62 +1,19 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { useEffect, useState } from "react";
-import { Alert, Button, Col, Divider, Flex, Row, Spin, Typography } from "antd";
-import DeleteButtonWithConfirm from "../components/common/DeleteButtonWithConfirm";
+import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { useEffect, useState } from 'react';
+import { Alert, Button, Flex, Spin, Typography } from 'antd';
+import DeleteButtonWithConfirm from '../components/common/DeleteButtonWithConfirm';
 import {
   deleteBoard,
   getBoardWithCards,
   updateBoardName,
-} from "../features/board/thunk";
-import { NavigationPages } from "../enum/navigation";
-import BoardView from "../components/BoardView/BoardView";
-import CreateCardModal from "../components/modals/CreateCardModal";
-import EditCardModal from "../components/modals/EditCardModal";
-import { ICard } from "../interface/cardInterface";
-
-const cardArray = [
-  {
-    id: "123",
-    title: "sukasukasukasukasukasukasukasukasukasukasukasukasukasuka",
-    description:
-      "blyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyadblyad",
-    status: "todo",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    id: "4",
-    title: "suka",
-    description: "blyad",
-    status: "todo",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    id: "8",
-    title: "suka",
-    description: "blyad",
-    status: "todo",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    id: "7",
-    title: "suka",
-    description: "blyad",
-    status: "inProgress",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    id: "5",
-    title: "suka",
-    description: "blyad",
-    status: "done",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-];
+} from '../features/board/thunk';
+import { NavigationPages } from '../enum/navigation';
+import BoardView from '../components/BoardView/BoardView';
+import CreateCardModal from '../components/modals/CreateCardModal';
+import EditCardModal from '../components/modals/EditCardModal';
+import { ICard } from '../interface/cardInterface';
 
 const Board = () => {
   const { boardId } = useParams() as { boardId: string };
@@ -103,8 +60,10 @@ const Board = () => {
       >
         {boardWithCards.name}
       </Typography.Title>
-      <Flex justify="space-between" style={{ margin: "10px" }}>
-        <Button type="primary" onClick={showCreateModal}>Create task</Button>
+      <Flex justify="space-between" style={{ margin: '10px' }}>
+        <Button type="primary" onClick={showCreateModal}>
+          Create task
+        </Button>
         <DeleteButtonWithConfirm
           title="Delete board"
           description="Are you sure to delete this board?"
@@ -114,10 +73,17 @@ const Board = () => {
           buttonText="Delete Board"
         />
       </Flex>
-      <BoardView handleEditCard={showEditModal} boardId={boardId }cardList={boardWithCards.cards} />
+      <BoardView
+        handleEditCard={showEditModal}
+        boardId={boardId}
+        cardList={boardWithCards.cards}
+      />
       <CreateCardModal open={openCreateModal} setOpen={setOpenCreateModal} />
-      <EditCardModal selectedCard={selectedCard} open={openEditModal} setOpen={setOpenEditModal} />
-
+      <EditCardModal
+        selectedCard={selectedCard}
+        open={openEditModal}
+        setOpen={setOpenEditModal}
+      />
     </>
   );
 };

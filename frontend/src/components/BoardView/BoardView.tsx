@@ -1,26 +1,26 @@
-import { Row } from "antd";
-import BoardViewColumn, { BoardViewColumnProps } from "./Column";
+import * as React from 'react';
+import { Row } from 'antd';
+import BoardViewColumn, { BoardViewColumnProps } from './Column';
 import {
   viewBoardColumnIdsMapper,
   ViewBoardColumnsEnum,
-} from "../../enum/view-board-columns";
-import { ICard } from "../../interface/cardInterface";
-import { CardStatus } from "../../enum/cardStatus";
+} from '../../enum/view-board-columns';
+import { ICard } from '../../interface/cardInterface';
+import { CardStatus } from '../../enum/cardStatus';
 import {
   DndContext,
   PointerSensor,
   UniqueIdentifier,
   useSensor,
   useSensors,
-} from "@dnd-kit/core";
-import { useState } from "react";
-import { useAppDispatch } from "../../app/hooks";
-import updateCardStatus from "../../features/board/thunk/card/updateCardStatus";
+} from '@dnd-kit/core';
+import { useAppDispatch } from '../../app/hooks';
+import updateCardStatus from '../../features/board/thunk/card/updateCardStatus';
 
 type BoardViewProps = {
   boardId: string;
   cardList: ICard[];
-  handleEditCard: BoardViewColumnProps["handleEditCard"];
+  handleEditCard: BoardViewColumnProps['handleEditCard'];
 };
 
 const BoardView = ({ boardId, cardList, handleEditCard }: BoardViewProps) => {

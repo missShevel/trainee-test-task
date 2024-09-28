@@ -1,10 +1,11 @@
-import { useForm } from "antd/es/form/Form";
-import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { Modal } from "antd";
-import { ICard } from "../../interface/cardInterface";
-import editCard from "../../features/board/thunk/card/editCard";
-import CreateCardForm from "../forms/CreateCardForm";
+import * as React from 'react';
+import { useForm } from 'antd/es/form/Form';
+import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { Modal } from 'antd';
+import { ICard } from '../../interface/cardInterface';
+import editCard from '../../features/board/thunk/card/editCard';
+import CreateCardForm from '../forms/CreateCardForm';
 
 interface EditCardModalProps {
   open: boolean;
@@ -15,9 +16,7 @@ interface EditCardModalProps {
 const EditCardModal = ({ open, setOpen, selectedCard }: EditCardModalProps) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [form] = useForm();
-  const { boardWithCards, isLoading, isError } = useAppSelector(
-    (state) => state.board
-  );
+  const { boardWithCards } = useAppSelector((state) => state.board);
 
   const dispatch = useAppDispatch();
 

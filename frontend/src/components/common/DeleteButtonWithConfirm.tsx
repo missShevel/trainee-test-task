@@ -1,6 +1,7 @@
-import { DeleteOutlined } from "@ant-design/icons";
-import { Button, Popconfirm, PopconfirmProps } from "antd";
-import { ReactNode } from "react";
+import * as React from 'react';
+import { DeleteOutlined } from '@ant-design/icons';
+import { Button, Popconfirm, PopconfirmProps } from 'antd';
+import { ReactNode } from 'react';
 
 type DeleteButtonWithConfirmProps = {
   buttonText?: string;
@@ -8,7 +9,7 @@ type DeleteButtonWithConfirmProps = {
 } & PopconfirmProps;
 
 const DeleteButtonWithConfirm = ({
-  buttonText = "Delete",
+  buttonText = 'Delete',
   isIcon = false,
   ...popconfirmProps
 }: DeleteButtonWithConfirmProps) => {

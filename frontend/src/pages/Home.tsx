@@ -1,7 +1,8 @@
-import { Button, Divider, Flex, Typography } from "antd";
-import { useState } from "react";
-import CreateBoardModal from "../components/modals/CreateBoardModal";
-import ViewBoardForm from "../components/forms/ViewBoardForm";
+import * as React from 'react';
+import { Button, Divider, Flex } from 'antd';
+import { useState } from 'react';
+import CreateBoardModal from '../components/modals/CreateBoardModal';
+import ViewBoardForm from '../components/forms/ViewBoardForm';
 
 const HomePage = () => {
   const [open, setOpen] = useState(false);

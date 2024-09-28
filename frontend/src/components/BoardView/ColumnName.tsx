@@ -1,5 +1,6 @@
-import { Typography } from "antd";
-import { ViewBoardColumnsEnum } from "../../enum/view-board-columns";
+import * as React from 'react';
+import { Typography } from 'antd';
+import { ViewBoardColumnsEnum } from '../../enum/view-board-columns';
 
 export type BoardViewColumnNameProps = {
   name: ViewBoardColumnsEnum;
@@ -9,12 +10,12 @@ const BoardViewColumnName = ({ name }: BoardViewColumnNameProps) => {
   return (
     <div
       style={{
-        backgroundColor: "#ffffff",
-        padding: "5px",
-        borderRadius: "7px",
-        margin: "5px 0",
-        display: "flex",
-        justifyContent: "center",
+        backgroundColor: '#ffffff',
+        padding: '5px',
+        borderRadius: '7px',
+        margin: '5px 0',
+        display: 'flex',
+        justifyContent: 'center',
       }}
     >
       <Typography.Title

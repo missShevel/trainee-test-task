@@ -1,12 +1,13 @@
-import { Card, CardProps, Typography } from "antd";
-import { ICard } from "../../../interface/cardInterface";
-import dayjs from "dayjs";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import DeleteButtonWithConfirm from "../DeleteButtonWithConfirm";
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import deleteCard from "../../../features/board/thunk/card/deleteCard";
-import { useDraggable } from "@dnd-kit/core";
-import { CSS } from "@dnd-kit/utilities";
+import * as React from 'react';
+import { Card, Typography } from 'antd';
+import { ICard } from '../../../interface/cardInterface';
+import dayjs from 'dayjs';
+import { EditOutlined } from '@ant-design/icons';
+import DeleteButtonWithConfirm from '../DeleteButtonWithConfirm';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import deleteCard from '../../../features/board/thunk/card/deleteCard';
+import { useDraggable } from '@dnd-kit/core';
+import { CSS } from '@dnd-kit/utilities';
 
 export type TaskCardProps = {
   card: ICard;
@@ -14,14 +15,11 @@ export type TaskCardProps = {
 };
 
 const TaskCard = ({ card, handleEditCard }: TaskCardProps) => {
-  const { boardWithCards, isLoading, isError } = useAppSelector(
-    (state) => state.board
-  );
+  const { boardWithCards } = useAppSelector((state) => state.board);
 
-  const { attributes, listeners, setNodeRef, transform, isDragging } =
-    useDraggable({
-      id: card.id,
-    });
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: card.id,
+  });
 
   const dispatch = useAppDispatch();
 
@@ -31,6 +29,7 @@ const TaskCard = ({ card, handleEditCard }: TaskCardProps) => {
   const actions = [
     <EditOutlined key="edit" onClick={() => handleEditCard(card)} />,
     <DeleteButtonWithConfirm
+      key="delete"
       isIcon
       title="Delete card"
       description="Are you sure to delete this card?"
@@ -52,7 +51,7 @@ const TaskCard = ({ card, handleEditCard }: TaskCardProps) => {
         }}
         extra={
           <Typography.Text type="secondary">
-            {dayjs(card.createdAt).format("MMM D, YYYY")}
+            {dayjs(card.createdAt).format('MMM D, YYYY')}
           </Typography.Text>
         }
         hoverable
@@ -62,7 +61,7 @@ const TaskCard = ({ card, handleEditCard }: TaskCardProps) => {
         {...attributes}
       >
         <Typography.Paragraph
-          ellipsis={{ rows: 3, expandable: true, symbol: "more" }}
+          ellipsis={{ rows: 3, expandable: true, symbol: 'more' }}
         >
           {card.description}
         </Typography.Paragraph>
