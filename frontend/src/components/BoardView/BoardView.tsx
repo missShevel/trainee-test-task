@@ -1,14 +1,15 @@
 import { Row } from "antd";
-import BoardViewColumn from "./Column";
+import BoardViewColumn, { BoardViewColumnProps } from "./Column";
 import { ViewBoardColumnsEnum } from "../../enum/view-board-columns";
 import { ICard } from "../../interface/cardInterface";
 import { CardStatus } from "../../enum/cardStatus";
 
 type BoardViewProps = {
   cardList: ICard[];
+  handleEditCard: BoardViewColumnProps['handleEditCard']
 };
 
-const BoardView = ({ cardList }: BoardViewProps) => {
+const BoardView = ({ cardList, handleEditCard }: BoardViewProps) => {
   const todo = cardList.filter((card) => card.status === CardStatus.TODO);
   const inProgress = cardList.filter(
     (card) => card.status === CardStatus.IN_PROGRESS
@@ -16,12 +17,13 @@ const BoardView = ({ cardList }: BoardViewProps) => {
   const done = cardList.filter((card) => card.status === CardStatus.DONE);
   return (
     <Row justify="space-around">
-      <BoardViewColumn cardList={todo} name={ViewBoardColumnsEnum.TODO} />
+      <BoardViewColumn handleEditCard={handleEditCard} cardList={todo} name={ViewBoardColumnsEnum.TODO} />
       <BoardViewColumn
+        handleEditCard={handleEditCard}
         cardList={inProgress}
         name={ViewBoardColumnsEnum.IN_PROGRESS}
       />
-      <BoardViewColumn cardList={done} name={ViewBoardColumnsEnum.DONE} />
+      <BoardViewColumn handleEditCard={handleEditCard} cardList={done} name={ViewBoardColumnsEnum.DONE} />
     </Row>
   );
 };

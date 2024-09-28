@@ -2,9 +2,13 @@ import { Col, Divider } from "antd";
 import BoardViewColumnName, { BoardViewColumnNameProps } from "./ColumnName";
 import TaskCardList, { TaskCardListProps } from "../common/TaskCard/TaskList";
 
-type BoardViewColumnProps = {} & BoardViewColumnNameProps & TaskCardListProps;
+export type BoardViewColumnProps = {} & BoardViewColumnNameProps & TaskCardListProps;
 
-const BoardViewColumn = ({ cardList, name }: BoardViewColumnProps) => {
+const BoardViewColumn = ({
+  cardList,
+  name,
+  handleEditCard,
+}: BoardViewColumnProps) => {
   return (
     <Col
       style={{ background: "#f2f2f2", minHeight: "500px", padding: "7px" }}
@@ -12,7 +16,7 @@ const BoardViewColumn = ({ cardList, name }: BoardViewColumnProps) => {
     >
       <BoardViewColumnName name={name} />
       <Divider />
-      <TaskCardList cardList={cardList} />
+      <TaskCardList handleEditCard={handleEditCard} cardList={cardList} />
     </Col>
   );
 };

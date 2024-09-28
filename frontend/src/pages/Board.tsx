@@ -11,6 +11,8 @@ import {
 import { NavigationPages } from "../enum/navigation";
 import BoardView from "../components/BoardView/BoardView";
 import CreateCardModal from "../components/modals/CreateCardModal";
+import EditCardModal from "../components/modals/EditCardModal";
+import { ICard } from "../interface/cardInterface";
 
 const cardArray = [
   {
@@ -63,10 +65,18 @@ const Board = () => {
   const { boardWithCards, isLoading, isError } = useAppSelector(
     (state) => state.board
   );
-  const [open, setOpen] = useState(false);
-  const showModal = () => {
-    console.log(open);
-    setOpen(true);
+  const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [selectedCard, setSelectedCard] = useState<ICard | null>(null);
+
+  const showCreateModal = () => {
+    console.log(openCreateModal);
+    setOpenCreateModal(true);
+  };
+  const showEditModal = (card: ICard) => {
+    console.log(openEditModal);
+    setSelectedCard(card);
+    setOpenEditModal(true);
   };
 
   useEffect(() => {
@@ -94,7 +104,7 @@ const Board = () => {
         {boardWithCards.name}
       </Typography.Title>
       <Flex justify="space-between" style={{ margin: "10px" }}>
-        <Button type="primary" onClick={showModal}>Create task</Button>
+        <Button type="primary" onClick={showCreateModal}>Create task</Button>
         <DeleteButtonWithConfirm
           title="Delete board"
           description="Are you sure to delete this board?"
@@ -104,8 +114,9 @@ const Board = () => {
           buttonText="Delete Board"
         />
       </Flex>
-      <BoardView cardList={boardWithCards.cards} />
-      <CreateCardModal open={open} setOpen={setOpen} />
+      <BoardView handleEditCard={showEditModal} cardList={boardWithCards.cards} />
+      <CreateCardModal open={openCreateModal} setOpen={setOpenCreateModal} />
+      <EditCardModal selectedCard={selectedCard} open={openEditModal} setOpen={setOpenEditModal} />
 
     </>
   );

@@ -6,11 +6,12 @@ import DeleteButtonWithConfirm from "../DeleteButtonWithConfirm";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import deleteCard from "../../../features/board/thunk/card/deleteCard";
 
-type TaskCardProps = {
+export type TaskCardProps = {
   card: ICard;
+  handleEditCard: (card: ICard) => void;
 };
 
-const TaskCard = ({ card }: TaskCardProps) => {
+const TaskCard = ({ card, handleEditCard }: TaskCardProps) => {
   const { boardWithCards, isLoading, isError } = useAppSelector(
     (state) => state.board
   );
@@ -19,9 +20,8 @@ const TaskCard = ({ card }: TaskCardProps) => {
   const handleDeleteCard = (cardId: string) => {
     dispatch(deleteCard({ boardId: boardWithCards!.id, cardId }));
   };
-  const handleEditCard = () => {};
   const actions = [
-    <EditOutlined key="edit" onClick={handleEditCard} />,
+    <EditOutlined key="edit" onClick={() => handleEditCard(card)} />,
     <DeleteButtonWithConfirm
       isIcon
       title="Delete card"

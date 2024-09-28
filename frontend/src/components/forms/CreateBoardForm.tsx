@@ -1,13 +1,17 @@
 import { Form, FormInstance, Input } from "antd";
 interface CreateBoardFormProps {
   form: FormInstance;
+  initialValues?: {
+    title?: string;
+    description?: string;
+  };
 }
-const CreateBoardForm = ({ form }: CreateBoardFormProps) => {
+const CreateBoardForm = ({ form, initialValues }: CreateBoardFormProps) => {
   return (
     <Form
       form={form}
       layout="vertical"
-      initialValues={{ remember: true }}
+      initialValues={initialValues}
       autoComplete="on"
     >
       <Form.Item
