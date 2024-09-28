@@ -1,0 +1,38 @@
+name: Lint and Format Check
+
+on: [push, pull_request]
+
+jobs:
+  lint-and-prettier:
+    name: Run ESLint and Prettier for Frontend and Backend
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        folder: [frontend, backend] # Define the folders you want to check
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js (if required for both frontend and backend)
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # Use Node.js 18 or any version you prefer
+
+      # Step 3: Install dependencies (runs in each folder: frontend and backend)
+      - name: Install dependencies
+        working-directory: ${{ matrix.folder }}
+        run: yarn install
+
+      # Step 4: Run ESLint
+      - name: Run ESLint
+        working-directory: ${{ matrix.folder }}
+        run: yarn lint
+
+      # Step 5: Run Prettier to check formatting
+      - name: Run Prettier
+        working-directory: ${{ matrix.folder }}
+        run: yarn format'
