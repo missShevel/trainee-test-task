@@ -22,12 +22,10 @@ const CreateBoardModal = ({ open, setOpen }: CreateBoardModalProps) => {
     try {
       setConfirmLoading(true);
       const formValue = await form.validateFields();
-      console.log("Form values", formValue);
       const { data: createdBoard } = await axiosInstance.post(
         ApiEndpoints.CREATE_BOARD,
         formValue
       );
-      console.log("Created board", createdBoard);
       setConfirmLoading(false);
       setOpen(false);
       navigate(`/board/${createdBoard.id}`);
@@ -42,7 +40,7 @@ const CreateBoardModal = ({ open, setOpen }: CreateBoardModalProps) => {
 
   return (
     <Modal
-      title="Title"
+      title="Create new board"
       open={open}
       onOk={handleOk}
       confirmLoading={confirmLoading}

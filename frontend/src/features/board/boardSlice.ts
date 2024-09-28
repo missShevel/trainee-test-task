@@ -4,6 +4,7 @@ import { deleteBoard, getBoardWithCards, updateBoardName } from "./thunk";
 import { boardInitialState, IBoardInitialState } from "./state";
 import deleteCard from "./thunk/card/deleteCard";
 import { ICard } from "../../interface/cardInterface";
+import createCard from "./thunk/card/createCard";
 
 const handlePending = (state: IBoardInitialState) => {
   state.isLoading = true;
@@ -64,6 +65,16 @@ export const boardSlice = createSlice({
         state.isError = false;
       })
       .addCase(deleteCard.rejected, handleRejected);
+
+    builder
+      .addCase(createCard.pending, handlePending)
+      .addCase(createCard.fulfilled, (state, action: PayloadAction<ICard>) => {
+        state.isLoading = false;
+        const createdCard = action.payload;
+        state.boardWithCards!.cards.push(createdCard);
+        state.isError = false;
+      })
+      .addCase(createCard.rejected, handleRejected);
   },
 });
 

@@ -11,11 +11,14 @@ const CreateBoardForm = ({ form }: CreateBoardFormProps) => {
       autoComplete="on"
     >
       <Form.Item
-        name="name"
-        label="Board name"
-        rules={[{ required: true, message: "Set a board name" }]}
+        name="title"
+        label="Title"
+        rules={[{ required: true, message: "Set task title" }]}
       >
         <Input />
+      </Form.Item>
+      <Form.Item name="description" label="Description">
+        <Input.TextArea rows={4} />
       </Form.Item>
     </Form>
   );

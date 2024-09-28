@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { useEffect, useState } from "react";
-import { Alert, Col, Divider, Flex, Row, Spin, Typography } from "antd";
+import { Alert, Button, Col, Divider, Flex, Row, Spin, Typography } from "antd";
 import DeleteButtonWithConfirm from "../components/common/DeleteButtonWithConfirm";
 import {
   deleteBoard,
@@ -9,13 +9,8 @@ import {
   updateBoardName,
 } from "../features/board/thunk";
 import { NavigationPages } from "../enum/navigation";
-import TaskCard from "../components/common/TaskCard/TaskCard";
-import dayjs from "dayjs";
-import TaskCardList from "../components/common/TaskCard/TaskList";
-import BoardViewColumnName from "../components/BoardView/ColumnName";
-import { ViewBoardColumnsEnum } from "../enum/view-board-columns";
-import BoardViewColumn from "../components/BoardView/Column";
 import BoardView from "../components/BoardView/BoardView";
+import CreateCardModal from "../components/modals/CreateCardModal";
 
 const cardArray = [
   {
@@ -68,6 +63,12 @@ const Board = () => {
   const { boardWithCards, isLoading, isError } = useAppSelector(
     (state) => state.board
   );
+  const [open, setOpen] = useState(false);
+  const showModal = () => {
+    console.log(open);
+    setOpen(true);
+  };
+
   useEffect(() => {
     dispatch(getBoardWithCards(boardId));
   }, []);
@@ -82,7 +83,8 @@ const Board = () => {
 
   if (isLoading) return <Spin fullscreen />;
 
-  if (isError || !boardWithCards) return <Alert message="Error fetching board" type="error" />;
+  if (isError || !boardWithCards)
+    return <Alert message="Error fetching board" type="error" />;
   return (
     <>
       <Typography.Title
@@ -91,15 +93,20 @@ const Board = () => {
       >
         {boardWithCards.name}
       </Typography.Title>
-      <DeleteButtonWithConfirm
-        title="Delete board"
-        description="Are you sure to delete this board?"
-        onConfirm={handleDeleteBoard}
-        okText="Yes"
-        cancelText="No"
-        buttonText="Delete"
-      />
+      <Flex justify="space-between" style={{ margin: "10px" }}>
+        <Button type="primary" onClick={showModal}>Create task</Button>
+        <DeleteButtonWithConfirm
+          title="Delete board"
+          description="Are you sure to delete this board?"
+          onConfirm={handleDeleteBoard}
+          okText="Yes"
+          cancelText="No"
+          buttonText="Delete Board"
+        />
+      </Flex>
       <BoardView cardList={boardWithCards.cards} />
+      <CreateCardModal open={open} setOpen={setOpen} />
+
     </>
   );
 };
