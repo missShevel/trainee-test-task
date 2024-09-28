@@ -1,6 +1,3 @@
-import React from "react";
-import logo from "./logo.svg";
-import { Counter } from "./features/counter/Counter";
 import "./App.css";
 import HomePage from "./pages/Home";
 import { Route, Routes } from "react-router-dom";

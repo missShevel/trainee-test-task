@@ -1,30 +1,25 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IBoardWithCards } from "../../interface/boardInterface";
-import axiosInstance from "../../api/axios";
-import { ApiEndpoints } from "../../enum/apiEndpoints";
+import { deleteBoard, getBoardWithCards, updateBoardName } from "./thunk";
+import { boardInitialState, IBoardInitialState } from "./state";
 
-interface IBoardInitialState {
-  boardWithCards: IBoardWithCards | null;
-  isLoading: boolean;
-  isError: boolean;
-}
-
-const initialState: IBoardInitialState = {
-  boardWithCards: null,
-  isLoading: false,
-  isError: false,
+const handlePending = (state: IBoardInitialState) => {
+  state.isLoading = true;
+  state.isError = false;
 };
 
-const boardSlice = createSlice({
+const handleRejected = (state: IBoardInitialState) => {
+  state.isLoading = false;
+  state.isError = true;
+};
+
+export const boardSlice = createSlice({
   name: "board",
-  initialState,
+  initialState: boardInitialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getBoardWithCards.pending, (state) => {
-        state.isLoading = true;
-        state.isError = false;
-      })
+      .addCase(getBoardWithCards.pending, handlePending)
       .addCase(
         getBoardWithCards.fulfilled,
         (state, action: PayloadAction<IBoardWithCards>) => {
@@ -33,14 +28,10 @@ const boardSlice = createSlice({
           state.isError = false;
         }
       )
-      .addCase(getBoardWithCards.rejected, (state) => {
-        state.isLoading = false;
-        state.isError = true;
-      })
-      .addCase(updateBoardName.pending, (state) => {
-        state.isLoading = true;
-        state.isError = false;
-      })
+      .addCase(getBoardWithCards.rejected, handleRejected);
+
+    builder
+      .addCase(updateBoardName.pending, handlePending)
       .addCase(
         updateBoardName.fulfilled,
         (state, action: PayloadAction<IBoardWithCards>) => {
@@ -49,55 +40,18 @@ const boardSlice = createSlice({
           state.isError = false;
         }
       )
-      .addCase(updateBoardName.rejected, (state) => {
-        state.isLoading = false;
-        state.isError = true;
-      })
-      .addCase(deleteBoard.pending, (state) => {
-        state.isLoading = true;
-        state.isError = false;
-      })
+      .addCase(updateBoardName.rejected, handleRejected);
+
+    builder
+      .addCase(deleteBoard.pending, handlePending)
       .addCase(deleteBoard.fulfilled, (state) => {
         state.isLoading = false;
         state.boardWithCards = null;
         state.isError = false;
       })
-      .addCase(deleteBoard.rejected, (state) => {
-        state.isLoading = false;
-        state.isError = true;
-      });
+      .addCase(deleteBoard.rejected, handleRejected);
   },
 });
-
-export const getBoardWithCards = createAsyncThunk(
-  "board/getBoardById",
-  async (boardId: string) => {
-    const { data: board } = await axiosInstance.get<IBoardWithCards>(
-      `${ApiEndpoints.GET_BOARD}/${boardId}`
-    );
-    return board;
-  }
-);
-
-export const updateBoardName = createAsyncThunk(
-  "board/updateBoardName",
-  async ({ boardId, name }: { boardId: string; name: string }) => {
-    const { data: board } = await axiosInstance.put<IBoardWithCards>(
-      `${ApiEndpoints.GET_BOARD}/${boardId}`,
-      { name }
-    );
-    return board;
-  }
-);
-
-export const deleteBoard = createAsyncThunk(
-  "board/delete",
-  async (boardId: string) => {
-    await axiosInstance.delete<IBoardWithCards>(
-      `${ApiEndpoints.GET_BOARD}/${boardId}`
-    );
-  }
-);
 
 const boardReducer = boardSlice.reducer;
 export default boardReducer;

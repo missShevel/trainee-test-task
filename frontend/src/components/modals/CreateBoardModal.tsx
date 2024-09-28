@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Form, Modal } from "antd";
-import CreateBoardForm from "./CreateBoardForm";
 import { useForm } from "antd/es/form/Form";
-import axiosInstance from "../api/axios";
-import { ApiEndpoints } from "../enum/apiEndpoints";
+import axiosInstance from "../../api/axios";
+import { ApiEndpoints } from "../../enum/apiEndpoints";
 import { redirect, useNavigate } from "react-router-dom";
+import CreateBoardForm from "../forms/CreateBoardForm";
 
 interface CreateBoardModalProps {
   open: boolean;
