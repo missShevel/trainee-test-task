@@ -21,7 +21,6 @@ import { BoardModule } from './board/board.module';
         password: configService.get<string>('DATABASE_PASSWORD'),
         database: configService.get<string>('DATABASE_NAME'),
         entities: [Card, Board],
-        synchronize: true,
       }),
       inject: [ConfigService],
     }),
