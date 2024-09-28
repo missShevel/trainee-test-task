@@ -46,6 +46,8 @@ export class CardService {
   async delete(boardId: string, cardId: string): Promise<Card> {
     const board = await this.boardService.getBoardWithCardsOrThrow(boardId);
     const cardToDelete = this.getCardOrThrow(board, cardId);
-    return this.cardRepository.remove(cardToDelete);
+    await this.cardRepository.delete(cardToDelete.id);
+
+    return cardToDelete;
   }
 }

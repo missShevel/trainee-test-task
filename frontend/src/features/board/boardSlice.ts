@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IBoardWithCards } from "../../interface/boardInterface";
 import { deleteBoard, getBoardWithCards, updateBoardName } from "./thunk";
 import { boardInitialState, IBoardInitialState } from "./state";
+import deleteCard from "./thunk/card/deleteCard";
+import { ICard } from "../../interface/cardInterface";
 
 const handlePending = (state: IBoardInitialState) => {
   state.isLoading = true;
@@ -50,6 +52,18 @@ export const boardSlice = createSlice({
         state.isError = false;
       })
       .addCase(deleteBoard.rejected, handleRejected);
+
+    builder
+      .addCase(deleteCard.pending, handlePending)
+      .addCase(deleteCard.fulfilled, (state, action: PayloadAction<ICard>) => {
+        state.isLoading = false;
+        const { id: deletedCardId } = action.payload;
+        state.boardWithCards!.cards = state.boardWithCards!.cards.filter(
+          (c) => c.id !== deletedCardId
+        );
+        state.isError = false;
+      })
+      .addCase(deleteCard.rejected, handleRejected);
   },
 });
 

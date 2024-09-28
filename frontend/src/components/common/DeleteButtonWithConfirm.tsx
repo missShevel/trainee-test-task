@@ -1,17 +1,26 @@
+import { DeleteOutlined } from "@ant-design/icons";
 import { Button, Popconfirm, PopconfirmProps } from "antd";
+import { ReactNode } from "react";
 
 type DeleteButtonWithConfirmProps = {
-  buttonText: string;
+  buttonText?: string;
+  isIcon?: boolean;
 } & PopconfirmProps;
 
 const DeleteButtonWithConfirm = ({
   buttonText = "Delete",
+  isIcon = false,
   ...popconfirmProps
 }: DeleteButtonWithConfirmProps) => {
+  const buttonContent: ReactNode = isIcon ? (
+    <DeleteOutlined key="delete" />
+  ) : (
+    buttonText
+  );
   return (
     <div className="DeleteButtonWithConfirm">
       <Popconfirm {...popconfirmProps}>
-        <Button danger>{buttonText}</Button>
+        <Button danger>{buttonContent}</Button>
       </Popconfirm>
     </div>
   );
