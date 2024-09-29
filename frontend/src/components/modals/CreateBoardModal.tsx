@@ -27,11 +27,13 @@ const CreateBoardModal = ({ open, setOpen }: CreateBoardModalProps) => {
         ApiEndpoints.CREATE_BOARD,
         formValue
       );
-      setConfirmLoading(false);
       setOpen(false);
       navigate(`/board/${createdBoard.id}`);
     } catch (e) {
       console.error(e);
+      setOpen(true);
+    } finally {
+      setConfirmLoading(false);
     }
   };
 

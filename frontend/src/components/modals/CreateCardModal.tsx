@@ -24,10 +24,12 @@ const CreateCardModal = ({ open, setOpen }: CreateCardModalProps) => {
       const formValue = await form.validateFields();
       const { title, description } = formValue;
       dispatch(createCard({ boardId: boardWithCards!.id, title, description }));
-      setConfirmLoading(false);
       setOpen(false);
     } catch (e) {
       console.error(e);
+      setOpen(true);
+    } finally {
+      setConfirmLoading(false);
     }
   };
 
